@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="613.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.itemController.ItemFormController">
+<AnchorPane prefHeight="613.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemFormController">
    <children>
       <Text layoutX="343.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Management">
          <font>

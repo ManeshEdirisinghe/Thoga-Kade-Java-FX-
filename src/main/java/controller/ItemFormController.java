@@ -1,4 +1,4 @@
-package controller.itemController;
+package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,15 +10,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.ItemDTO;
+import service.ItemService;
+import service.impl.ItemServiceImpl;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ItemFormController implements Initializable {
 
-    ItemService itemService = new ItemController();
+    private final ItemService itemService = new ItemServiceImpl();
 
-    ObservableList<ItemDTO> itemDTOS = FXCollections.observableArrayList();
+    private ObservableList<ItemDTO> itemDTOS = FXCollections.observableArrayList();
 
     @FXML
     private TableColumn<?, ?> colDescription;
@@ -57,33 +59,33 @@ public class ItemFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    //load table  columns
-    colitemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-    colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-    colPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-    colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-    colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
-    loadAllItems();
+        //load table columns
+        colitemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+        loadAllItems();
 
-    //set selected row to the fields
-    tblItemView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValues) -> {
-        if (newValues!= null) {
-            setSelectedValue(newValues);
-        }
-    });
-
+        //set selected row to the fields
+        tblItemView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValues) -> {
+            if (newValues != null) {
+                setSelectedValue(newValues);
+            }
+        });
     }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
+        ItemDTO itemDTO = new ItemDTO(
+                txtItemCode.getText(),
+                txtDescription.getText(),
+                txtPackSize.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQtyOnHand.getText())
+        );
 
-        String itemCode = txtItemCode.getText();
-        String description = txtDescription.getText();
-        String packSize = txtPackSize.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
-
-        itemService.addItemDetails(itemCode, description, packSize, unitPrice, qtyOnHand);
+        itemService.addItem(itemDTO);
         clearFields();
         loadAllItems();
     }
@@ -95,36 +97,36 @@ public class ItemFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        itemService.deleteItemDetails(txtItemCode.getText());
+        itemService.deleteItem(txtItemCode.getText());
         clearFields();
         loadAllItems();
-
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String itemCode = txtItemCode.getText();
-        String description = txtDescription.getText();
-        String packSize = txtPackSize.getText();
-        double unitPrice = Double.parseDouble(txtUnitPrice.getText());
-        int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
+        ItemDTO itemDTO = new ItemDTO(
+                txtItemCode.getText(),
+                txtDescription.getText(),
+                txtPackSize.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQtyOnHand.getText())
+        );
 
-        itemService.updateItemDetails(itemCode, description, packSize, unitPrice, qtyOnHand);
+        itemService.updateItem(itemDTO);
         clearFields();
         loadAllItems();
-
     }
-
 
     //--------------------------------------All methods------------------------------------
-    private void loadAllItems(){
-
+    private void loadAllItems() {
         itemDTOS.clear();
-        tblItemView.setItems(itemService.getAllItemDetails());
+        itemDTOS.addAll(itemService.getAllItems());
+        tblItemView.setItems(itemDTOS);
     }
+
     //set selected row data to the fields
-    private void setSelectedValue(ItemDTO selectedValue){
-        if(selectedValue == null){
+    private void setSelectedValue(ItemDTO selectedValue) {
+        if (selectedValue == null) {
             clearFields();
             return;
         }
@@ -134,13 +136,13 @@ public class ItemFormController implements Initializable {
         txtUnitPrice.setText(String.valueOf(selectedValue.getUnitPrice()));
         txtQtyOnHand.setText(String.valueOf(selectedValue.getQtyOnHand()));
     }
+
     //clear all fields method
-    private void clearFields(){
+    private void clearFields() {
         txtItemCode.clear();
         txtDescription.clear();
         txtPackSize.clear();
         txtUnitPrice.clear();
         txtQtyOnHand.clear();
     }
-
 }

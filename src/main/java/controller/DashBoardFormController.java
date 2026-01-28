@@ -1,4 +1,4 @@
-package controller.dashboard;
+package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +27,7 @@ public class DashBoardFormController {
 
     @FXML
     void btnCustoemerManagementOnAction(ActionEvent event) {
-
+        // TODO: Implement customer management
     }
 
     @FXML
@@ -35,8 +35,6 @@ public class DashBoardFormController {
         try {
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/item.fxml"))));
             stage.show();
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -44,12 +42,11 @@ public class DashBoardFormController {
 
     @FXML
     void btnOrderDetailsManagementOnAction(ActionEvent event) {
-
+        // TODO: Implement order details management
     }
 
     @FXML
     void btnOrderManagementOnAction(ActionEvent event) {
-
+        // TODO: Implement order management
     }
-
 }
