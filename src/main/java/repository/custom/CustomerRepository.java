@@ -1,4 +1,7 @@
 package repository.custom;
 
-public class CustomerRepository {
+import model.entity.Customer;
+import repository.CrudRepository;
+
+public interface CustomerRepository extends CrudRepository<Customer> {
 }
