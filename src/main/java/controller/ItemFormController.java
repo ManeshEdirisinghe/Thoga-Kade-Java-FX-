@@ -74,20 +74,28 @@ public class ItemFormController implements Initializable {
             }
         });
     }
-
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        ItemDTO itemDTO = new ItemDTO(
-                txtItemCode.getText(),
-                txtDescription.getText(),
-                txtPackSize.getText(),
-                Double.parseDouble(txtUnitPrice.getText()),
-                Integer.parseInt(txtQtyOnHand.getText())
-        );
+        // UI field walin data ganna
+        String itemCode = txtItemCode.getText();
+        String description = txtDescription.getText();
+        String packSize = txtPackSize.getText();
 
-        itemService.addItem(itemDTO);
-        clearFields();
-        loadAllItems();
+        try {
+            double unitPrice = Double.parseDouble(txtUnitPrice.getText());
+            int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
+
+            // 1. DTO ekak create karanna [cite: 83, 296]
+            ItemDTO itemDTO = new ItemDTO(itemCode, description, packSize, unitPrice, qtyOnHand);
+
+            // 2. Aluth service method eka use karanna (addItemDetails wenuwata addItem) [cite: 91, 108]
+            itemService.addItem(itemDTO);
+
+            clearFields();
+            loadAllItems();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Price or Qty format");
+        }
     }
 
     @FXML
