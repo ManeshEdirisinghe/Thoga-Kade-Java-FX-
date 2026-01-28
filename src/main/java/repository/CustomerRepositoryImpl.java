@@ -17,13 +17,16 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void addCustomer(String id, String name, String address, double salary) {
         try {
             Connection connection = DBConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("INSERT INTO customer VALUES(?,?,?,?)");
+            String sql = "INSERT INTO customer (CustID, CustName, CustAddress, Salary) VALUES(?,?,?,?)";
+            PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setObject(1, id);
             pstm.setObject(2, name);
             pstm.setObject(3, address);
             pstm.setObject(4, salary);
             pstm.executeUpdate();
-        } catch (SQLException e) { throw new RuntimeException(e); }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
