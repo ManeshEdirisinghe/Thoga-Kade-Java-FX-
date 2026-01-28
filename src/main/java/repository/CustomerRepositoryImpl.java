@@ -10,7 +10,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     public ResultSet getAll() throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
-        return connection.prepareStatement("SELECT * FROM customer").executeQuery();
+        return connection.prepareStatement("SELECT CustID, CustName, CustAddress, Salary FROM customer").executeQuery();
     }
 
     @Override

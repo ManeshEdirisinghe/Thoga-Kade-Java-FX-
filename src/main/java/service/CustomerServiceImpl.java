@@ -33,13 +33,15 @@ public class CustomerServiceImpl implements CustomerService {
             ResultSet resultSet = customerRepository.getAll();
             while (resultSet.next()) {
                 customerList.add(new CustomerDTO(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getDouble(4)
+                        resultSet.getString("CustID"),      // Column index 1 wenuwata name eka danna
+                        resultSet.getString("CustName"),    // Column name eka check karanna
+                        resultSet.getString("CustAddress"),
+                        resultSet.getDouble("Salary")       // Database eke Salary kiyana eka double wenna ona
                 ));
             }
-        } catch (SQLException e) { throw new RuntimeException(e); }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return customerList;
     }
 }

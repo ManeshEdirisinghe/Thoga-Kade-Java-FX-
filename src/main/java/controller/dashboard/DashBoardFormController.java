@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class DashBoardFormController {
 
-    Stage stage = new Stage();
-
     @FXML
     private Button btnCustoemerManagement;
 
@@ -27,29 +25,33 @@ public class DashBoardFormController {
 
     @FXML
     void btnCustoemerManagementOnAction(ActionEvent event) {
-
+        try {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/customer.fxml"))));
+            stage.setTitle("Customer Management");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void btnItemManagementOnAction(ActionEvent event) {
         try {
+            Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/item.fxml"))));
+            stage.setTitle("Item Management");
             stage.show();
-
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
     @FXML
     void btnOrderDetailsManagementOnAction(ActionEvent event) {
-
     }
 
     @FXML
     void btnOrderManagementOnAction(ActionEvent event) {
-
     }
-
 }
