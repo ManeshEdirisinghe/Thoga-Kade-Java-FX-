@@ -5,15 +5,17 @@ import javafx.collections.ObservableList;
 import model.dto.CustomerDTO;
 import repository.CustomerRepository;
 import repository.CustomerRepositoryImpl;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerServiceImpl implements CustomerService {
+
     CustomerRepository customerRepository = new CustomerRepositoryImpl();
 
     @Override
-    public void addCustomerDetails(String id, String name, String address, double salary) {
-        customerRepository.addCustomer(id, name, address, salary);
+    public void addCustomerDetails(CustomerDTO customer) {
+        customerRepository.addCustomer(customer);
     }
 
     @Override
@@ -22,21 +24,20 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomerDetails(String id, String name, String address, double salary) {
-        customerRepository.updateCustomer(id, name, address, salary);
+    public void updateCustomerDetails(CustomerDTO customer) {
+        customerRepository.updateCustomer(customer); // Meka thamai override wenna ona method eka
     }
 
     @Override
     public ObservableList<CustomerDTO> getAllCustomerDetails() {
         ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList();
         try {
-            ResultSet resultSet = customerRepository.getAll();
-            while (resultSet.next()) {
+            ResultSet rs = customerRepository.getAll();
+            while (rs.next()) {
                 customerList.add(new CustomerDTO(
-                        resultSet.getString("CustID"),
-                        resultSet.getString("CustName"),
-                        resultSet.getString("CustAddress"),
-                        resultSet.getDouble("Salary")
+                        rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getDouble(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9)
                 ));
             }
         } catch (SQLException e) {
