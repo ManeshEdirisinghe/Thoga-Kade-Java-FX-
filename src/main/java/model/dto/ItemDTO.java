@@ -13,7 +13,7 @@ public class ItemDTO {
 
     private String description;
 
-    private String packSize;
+    private String PackSize;
 
     private double unitPrice;
 

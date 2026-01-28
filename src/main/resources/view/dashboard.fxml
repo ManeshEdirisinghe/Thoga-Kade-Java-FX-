@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="419.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardFormController">
+<AnchorPane prefHeight="419.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashBoardFormController">
    <children>
       <Text layoutX="233.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ThogaKade">
          <font>

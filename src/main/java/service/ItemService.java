@@ -1,18 +1,15 @@
 package service;
 
+import javafx.collections.ObservableList;
 import model.dto.ItemDTO;
-
-import java.util.List;
 
 public interface ItemService {
 
-    boolean addItem(ItemDTO itemDTO);
+    void addItemDetails(String itemCode, String description, String PackSize, double unitPrice, int qtyOnHand);
 
-    boolean updateItem(ItemDTO itemDTO);
+    void deleteItemDetails(String itemCode);
 
-    boolean deleteItem(String itemCode);
+    void updateItemDetails(String itemCode, String description, String PackSize, double unitPrice, int qtyOnHand);
 
-    ItemDTO getItemById(String itemCode);
-
-    List<ItemDTO> getAllItems();
+    ObservableList<ItemDTO> getAllItemDetails();
 }
